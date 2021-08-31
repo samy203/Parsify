@@ -6,14 +6,19 @@ from ParserBase import ParserBase
 
 
 def main():
-    if len(sys.argv) != 3:
-        sys.exit("Usage : parser.py <format> <file>")
+    if len(sys.argv) < 3:
+        sys.exit('Usage : parser.py <format> <file1> <file2> ....<file5>')
 
     subs = ParserBase.__subclasses__()
     for cls in subs:
         instance = globals()[cls.__name__]()
         if instance.GetFormat() == str(sys.argv[1]).strip().lower():
-            instance.Parse(sys.argv[2])
+            paths = []
+            for i in range(2, len(sys.argv)):
+                paths.append(sys.argv[i])
+            instance.Parse(paths)
+
+    sys.exit(f'Cant Find Corresponding Format to {sys.argv[1]}')
 
 
 if __name__ == "__main__":
