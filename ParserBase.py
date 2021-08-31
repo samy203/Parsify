@@ -1,5 +1,6 @@
 from abc import ABC, abstractmethod
 import time
+from pathlib import Path
 
 class ParserBase(ABC):
 
@@ -13,5 +14,13 @@ class ParserBase(ABC):
 
     def GetTimeStamp(self):
         return time.time()
+
+    def GenerateOutputDirectory(self):
+        base = Path('output')
+        base.mkdir(exist_ok=True)
+
+        extBase = Path(f'output/{self.GetFormatExtension()}')
+        extBase.mkdir(exist_ok=True)
+
 
 
