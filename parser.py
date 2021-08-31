@@ -18,7 +18,7 @@ def main():
             for i in range(2, len(sys.argv)):
                 paths.append(sys.argv[i])
             instance.Parse(paths)
-            return
+            sys.exit('Success')
 
     sys.exit(f'Cant Find Corresponding Format to {sys.argv[1]}')
 
