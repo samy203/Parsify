@@ -1,11 +1,17 @@
-from parser import ParserBase
+from ParserBase import  ParserBase
+import xmltodict, json
+import os
 
 
 class XMLParser(ParserBase):
 
-    def GetFormat(self):
+    def GetFormatExtension(self):
         return 'xml'
 
-    def Parse(self, path):
-        # implement later
-        pass
+    def Parse(self, paths):
+        with open(paths[0]) as fd:
+            doc = xmltodict.parse(fd.read())
+            with open(f'{self.GetTimeStamp()}_{os.path.basename(paths[0])}.json', 'w', encoding='utf-8') as f:
+                json.dump(doc, f, ensure_ascii=False, indent=4)
+
+

@@ -3,6 +3,7 @@ import sys
 import os
 import pkgutil
 from ParserBase import ParserBase
+from Parsers.XMLParser import XMLParser
 
 
 def main():
@@ -12,11 +13,12 @@ def main():
     subs = ParserBase.__subclasses__()
     for cls in subs:
         instance = globals()[cls.__name__]()
-        if instance.GetFormat() == str(sys.argv[1]).strip().lower():
+        if instance.GetFormatExtension() == str(sys.argv[1]).strip().lower():
             paths = []
             for i in range(2, len(sys.argv)):
                 paths.append(sys.argv[i])
             instance.Parse(paths)
+            return
 
     sys.exit(f'Cant Find Corresponding Format to {sys.argv[1]}')
 
