@@ -8,7 +8,7 @@ class ParserBase(ABC):
         pass
 
     @abstractmethod
-    def Parse(self, path):
+    def Parse(self, paths):
         pass
 
 
