@@ -2,7 +2,7 @@ from ParserBase import ParserBase
 import json
 import csv
 import os
-
+import requests
 
 class CSVParser(ParserBase):
 
@@ -11,6 +11,16 @@ class CSVParser(ParserBase):
 
     def GetPathArgsCount(self):
         return 2
+
+    def EnrichVehicleData(self, vehicle):
+        # the
+        response = requests.get(f"https://vpic.nhtsa.dot.gov/api/vehicles/DecodeVinValues/{vehicle['vin_number']}?format=json&modelyear={vehicle['model_year']}")
+        vehiclesFullData = response.json()['Results'][0]
+        vehicle['Model'] = vehiclesFullData['Model']
+        vehicle['Manufacturer'] = vehiclesFullData['Manufacturer']
+        vehicle['PlantCountry'] = vehiclesFullData['PlantCountry']
+        vehicle['VehicleType'] = vehiclesFullData['VehicleType']
+        return vehicle
 
     def Parse(self, paths):
         self.GenerateOutputDirectory()
@@ -41,6 +51,7 @@ class CSVParser(ParserBase):
                         # to the transObj['vehicles']
                         shallowCopyVehicle = vehicle.copy()
                         shallowCopyVehicle.pop('owner_id')
+                        self.EnrichVehicleData(shallowCopyVehicle)
                         transObj['vehicles'].append(shallowCopyVehicle)
 
                 outputObj['transaction'].append(transObj)
