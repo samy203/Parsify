@@ -19,6 +19,8 @@ class XMLParser(ParserBase):
         with open(paths[0]) as fd:
             doc = xmltodict.parse(fd.read())
             vics = doc['Insurance']['Transaction']['Customer']['Units']['Auto']['Vehicle']
+            for v in vics:
+                self.EnrichVehicleData(v)
             doc['Insurance']['Transaction']['Customer'].pop('Units')
             outputObj['transaction'] = doc['Insurance']['Transaction']
             outputObj['transaction']['vehicles'] = vics

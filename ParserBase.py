@@ -1,6 +1,7 @@
 from abc import ABC, abstractmethod
 import time
 from pathlib import Path
+import requests
 
 
 class ParserBase(ABC):
@@ -26,3 +27,12 @@ class ParserBase(ABC):
 
         extBase = Path(f'output/{self.GetFormatExtension()}')
         extBase.mkdir(exist_ok=True)
+
+    def EnrichVehicleData(self, vehicle):
+        response = requests.get(f"https://vpic.nhtsa.dot.gov/api/vehicles/DecodeVinValues/{vehicle['VinNumber']}?format=json&modelyear={vehicle['ModelYear']}")
+        vehiclesFullData = response.json()['Results'][0]
+        vehicle['Model'] = vehiclesFullData['Model']
+        vehicle['Manufacturer'] = vehiclesFullData['Manufacturer']
+        vehicle['PlantCountry'] = vehiclesFullData['PlantCountry']
+        vehicle['VehicleType'] = vehiclesFullData['VehicleType']
+        return vehicle
