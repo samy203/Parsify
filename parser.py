@@ -14,12 +14,17 @@ def main():
     subs = ParserBase.__subclasses__()
     for cls in subs:
         instance = globals()[cls.__name__]()
+        # check if current instance matchs the input format
         if instance.GetFormatExtension() == str(sys.argv[1]).strip().lower():
-            paths = []
-            for i in range(2, len(sys.argv)):
-                paths.append(sys.argv[i])
-            instance.Parse(paths)
-            sys.exit('Success')
+            # check if the input args lengths matches the parser definition
+            if instance.GetPathArgsCount() == len(sys.argv) - 2:
+                paths = []
+                for i in range(2, len(sys.argv)):
+                    paths.append(sys.argv[i])
+                instance.Parse(paths)
+                sys.exit('Success')
+
+            sys.exit(f'The Require Path Args for {sys.argv[1]} Format is {instance.GetPathArgsCount()}')
 
     sys.exit(f'Cant Find Corresponding Format to {sys.argv[1]}')
 

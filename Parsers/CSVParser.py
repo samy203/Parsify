@@ -9,6 +9,9 @@ class CSVParser(ParserBase):
     def GetFormatExtension(self):
         return 'csv'
 
+    def GetPathArgsCount(self):
+        return 2
+
     def Parse(self, paths):
         self.GenerateOutputDirectory()
 

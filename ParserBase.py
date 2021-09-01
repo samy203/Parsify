@@ -2,6 +2,7 @@ from abc import ABC, abstractmethod
 import time
 from pathlib import Path
 
+
 class ParserBase(ABC):
 
     @abstractmethod
@@ -10,6 +11,10 @@ class ParserBase(ABC):
 
     @abstractmethod
     def Parse(self, paths):
+        pass
+
+    @abstractmethod
+    def GetPathArgsCount(self):
         pass
 
     def GetTimeStamp(self):
@@ -21,6 +26,3 @@ class ParserBase(ABC):
 
         extBase = Path(f'output/{self.GetFormatExtension()}')
         extBase.mkdir(exist_ok=True)
-
-
-

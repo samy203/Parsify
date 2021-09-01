@@ -8,6 +8,9 @@ class XMLParser(ParserBase):
     def GetFormatExtension(self):
         return 'xml'
 
+    def GetPathArgsCount(self):
+        return 1
+
     def Parse(self, paths):
         self.GenerateOutputDirectory()
 
