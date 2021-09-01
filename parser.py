@@ -1,10 +1,10 @@
-import csv
 import sys
-import os
-import pkgutil
+
 from ParserBase import ParserBase
-from Parsers.XMLParser import XMLParser
-from Parsers.CSVParser import CSVParser
+
+
+# must be imported for all types of parsers otherwise it wont retrieved by calling ParserBase.__subclasses(),
+# im sure it could be loaded dynamically somehow
 
 
 def main():
@@ -14,7 +14,7 @@ def main():
     subs = ParserBase.__subclasses__()
     for cls in subs:
         instance = globals()[cls.__name__]()
-        # check if current instance matchs the input format
+        # check if current instance matches the input format
         if instance.GetFormatExtension() == str(sys.argv[1]).strip().lower():
             # check if the input args lengths matches the parser definition
             if instance.GetPathArgsCount() == len(sys.argv) - 2:
