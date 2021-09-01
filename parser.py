@@ -16,7 +16,8 @@ def main():
         instance = globals()[cls.__name__]()
         # check if current instance matches the input format
         if instance.GetFormatExtension() == str(sys.argv[1]).strip().lower():
-            # check if the input args lengths matches the parser definition
+            # check if the input args lengths matches the parser definition ( not counting the exe path and the
+            # extension arg)
             if instance.GetPathArgsCount() == len(sys.argv) - 2:
                 paths = []
                 for i in range(2, len(sys.argv)):
