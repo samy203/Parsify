@@ -4,6 +4,7 @@ import os
 import pkgutil
 from ParserBase import ParserBase
 from Parsers.XMLParser import XMLParser
+from Parsers.CSVParser import CSVParser
 
 
 def main():
