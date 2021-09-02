@@ -27,10 +27,8 @@ class CSVParser(ParserBase):
     def Parse(self, paths,  output):
         self.GenerateOutputDirectory()
 
-        outputObj = {'file_name': os.path.basename(paths[0])}
         # the csv file contained multiple persons compared to xml files, this is why im converting dict['transaction']
         # from {} to [] , and there is 2 input files, so im changed how the output file is named accordingly
-
         outputObj = {'file_name': f'{os.path.basename(paths[0])}-{os.path.basename(paths[1])}', 'transaction': []}
 
         vehicleData = []
@@ -49,7 +47,7 @@ class CSVParser(ParserBase):
 
                 for vehicle in vehicleData:
                     if vehicle['owner_id'] == rows['id']:
-                        # cant pop the owner_id , cuz it will get iterated on later, this part could be optmized
+                        # cant pop the owner_id , cuz it will get iterated on later, this part could be optimized
                         # later by removing cars that already have owner once assigning to the transObj['vehicles']
                         shallowCopyVehicle = vehicle.copy()
                         shallowCopyVehicle.pop('owner_id')

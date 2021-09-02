@@ -17,6 +17,14 @@ class ParserBase(ABC):
     def GetPathArgsCount(self):
         pass
 
+    @abstractmethod
+    def EnrichVehicleData(self, vehicle):
+        # this function could be implemented in the base class if the keys of vin_number and model is the same in all
+        # input files, but since the key differs eg: XML file -> VinNumber while in CSV -> vin_number , so to avoid
+        # the typical if else hoard and violating the open close principle I left it to each class to implement its own
+        # EnrichVehicleData
+        pass
+
     def GetTimeStamp(self):
         return time.time()
 
@@ -27,10 +35,3 @@ class ParserBase(ABC):
         extBase = Path(f'output/{self.GetFormatExtension()}')
         extBase.mkdir(exist_ok=True)
 
-    @abstractmethod
-    def EnrichVehicleData(self, vehicle):
-        # this function could be implemented in the base class if the keys of vin_number and model is the same in all
-        # input files, but since the key differs eg: XML file -> VinNumber while in CSV -> vin_number , so to avoid
-        # the typical if else hoard and violating the open close principle I left it to each class to implement its own
-        # EnrichVehicleData
-        pass
