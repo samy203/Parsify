@@ -9,9 +9,9 @@ parser.py <file extension> <output destination> <file1> <file2>.....<file5>
 ```
 **File Extension** : the extension of input file(s).
 
-**Output Destination** : "db" for save parsed data in MongoDB or "json" to save data in output/extension/ relative directory
+**Output Destination** : "db" for save parsed data in MongoDB or "json" to save data in output/< extension >/ relative directory
 
- **File Arguments** : n amount of files that a parser will handle
+ **File Arguments** : < n > amount of files that a parser will handle
 
 
 
