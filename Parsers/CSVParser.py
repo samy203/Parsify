@@ -63,7 +63,7 @@ class CSVParser(ParserBase):
                     'w',
                     encoding='utf-8') as f:
                 json.dump(outputObj, f, ensure_ascii=False, indent=4)
-        else:
+        elif output == 'db':
             client = MongoClient('localhost', 27017)
             db = client.trufla
             collection = db.csv
