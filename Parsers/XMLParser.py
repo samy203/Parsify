@@ -45,6 +45,6 @@ class XMLParser(ParserBase):
                 json.dump(outputObj, f, ensure_ascii=False, indent=4)
         elif output == 'db':
             client = MongoClient('localhost', 27017)
-            db = client.trufla
+            db = client.trufla_testing
             collection = db.xml
             collection.insert(outputObj)
