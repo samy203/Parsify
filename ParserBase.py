@@ -10,7 +10,7 @@ class ParserBase(ABC):
         pass
 
     @abstractmethod
-    def Parse(self, paths):
+    def Parse(self, paths, output):
         pass
 
     @abstractmethod

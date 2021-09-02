@@ -22,7 +22,7 @@ class CSVParser(ParserBase):
         vehicle['VehicleType'] = vehiclesFullData['VehicleType']
         return vehicle
 
-    def Parse(self, paths):
+    def Parse(self, paths,  output):
         self.GenerateOutputDirectory()
 
         outputObj = {'file_name': os.path.basename(paths[0])}
@@ -47,17 +47,20 @@ class CSVParser(ParserBase):
 
                 for vehicle in vehicleData:
                     if vehicle['owner_id'] == rows['id']:
-                        # cant pop the owner_id , cuz it will get iterated on later, this part could be optmized later by removing cars that already have owner once assigning
-                        # to the transObj['vehicles']
+                        # cant pop the owner_id , cuz it will get iterated on later, this part could be optmized
+                        # later by removing cars that already have owner once assigning to the transObj['vehicles']
                         shallowCopyVehicle = vehicle.copy()
                         shallowCopyVehicle.pop('owner_id')
                         self.EnrichVehicleData(shallowCopyVehicle)
                         transObj['vehicles'].append(shallowCopyVehicle)
 
                 outputObj['transaction'].append(transObj)
+        if output == 'json':
+            with open(
+                    f'output/{self.GetFormatExtension()}/{self.GetTimeStamp()}_{os.path.basename(paths[0])}-{os.path.basename(paths[1])}.json',
+                    'w',
+                    encoding='utf-8') as f:
+                json.dump(outputObj, f, ensure_ascii=False, indent=4)
+        else:
+            pass
 
-        with open(
-                f'output/{self.GetFormatExtension()}/{self.GetTimeStamp()}_{os.path.basename(paths[0])}-{os.path.basename(paths[1])}.json',
-                'w',
-                encoding='utf-8') as f:
-            json.dump(outputObj, f, ensure_ascii=False, indent=4)

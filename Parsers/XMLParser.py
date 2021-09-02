@@ -22,7 +22,7 @@ class XMLParser(ParserBase):
         vehicle['VehicleType'] = vehiclesFullData['VehicleType']
         return vehicle
 
-    def Parse(self, paths):
+    def Parse(self, paths, output):
         self.GenerateOutputDirectory()
 
         outputObj = {'file_name': os.path.basename(paths[0])}
@@ -36,7 +36,9 @@ class XMLParser(ParserBase):
             outputObj['transaction'] = doc['Insurance']['Transaction']
             outputObj['transaction']['vehicles'] = vics
 
+        if output == 'json':
             with open(f'output/{self.GetFormatExtension()}/{self.GetTimeStamp()}_{os.path.basename(paths[0])}.json', 'w',encoding='utf-8') as f:
                 json.dump(outputObj, f, ensure_ascii=False, indent=4)
-
+        else:
+            pass
 
