@@ -3,6 +3,8 @@ import json
 import csv
 import os
 import requests
+from pymongo import MongoClient
+
 
 class CSVParser(ParserBase):
 
@@ -62,5 +64,8 @@ class CSVParser(ParserBase):
                     encoding='utf-8') as f:
                 json.dump(outputObj, f, ensure_ascii=False, indent=4)
         else:
-            pass
+            client = MongoClient('localhost', 27017)
+            db = client.trufla
+            collection = db.csv
+            collection.insert(outputObj)
 

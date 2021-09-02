@@ -1,8 +1,9 @@
 from ParserBase import  ParserBase
-import xmltodict, json
+import xmltodict
+import json
 import os
 import requests
-
+from pymongo import MongoClient
 
 class XMLParser(ParserBase):
 
@@ -39,6 +40,9 @@ class XMLParser(ParserBase):
         if output == 'json':
             with open(f'output/{self.GetFormatExtension()}/{self.GetTimeStamp()}_{os.path.basename(paths[0])}.json', 'w',encoding='utf-8') as f:
                 json.dump(outputObj, f, ensure_ascii=False, indent=4)
-        else:
-            pass
+        elif output == 'db':
+            client = MongoClient('localhost', 27017)
+            db = client.trufla
+            collection = db.xml
+            collection.insert(outputObj)
 
