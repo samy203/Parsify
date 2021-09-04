@@ -1,6 +1,6 @@
 # Parsify
 
-Parsify is a Python tool to dealing with File parsing, It's easily extendable to parse different types of formats.
+Parsify is a Python tool to deal with File parsing, It's easily extendable to parse different types of formats.
 
 ## Usage
 
